@@ -2,7 +2,7 @@ COLORS = ["blue", "red", "yellow", "green", "organe", "purple"]
 player_guess_history = {}
 
 
-def computer_create_code
+def create_code_computer 
   code = []
   4.times do
     number = rand(0..5)
@@ -12,22 +12,27 @@ def computer_create_code
   code
 end
 
-code = computer_create_code
-p code
-
-
-
-
-puts "Possible colors are blue, red, yellow, green, orange, purple"
-
-
-
-puts "Enter your guess! "
-player_guess = []
-4.times do 
-   player_guess.push(gets.chomp)
+def add_guess_player(player_guess_history)
+  puts "Possible colors are blue, red, yellow, green, orange, purple"
+  puts "Enter your guess! "
+  player_guess = []
+  4.times do 
+    player_guess.push(gets.chomp)
+  end
+  puts `clear`
+  puts "Your guess"
+  return player_guess_history[player_guess] = []
 end
-puts `clear`
-puts "Your guess"
-player_guess_history.push(player_guess)
+
+
+code = create_code_computer
+p code
+add_guess_player(player_guess_history)
 p player_guess_history
+
+
+
+
+
+
+
