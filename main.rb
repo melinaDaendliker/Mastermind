@@ -30,7 +30,6 @@ def correct_user_input(user_input)
     puts "This color is not an option"
     puts "Enter your guess! "
     user_input = gets.chomp
-    return user_input
   end
   user_input
 end
@@ -79,6 +78,12 @@ def computer_evaluation(code, player_guess)
   evaluation
 end 
 
+def print_player_history(player_guess_history)
+  player_guess_history.each do |key, value|
+    puts "#{key} : #{value}"
+  end
+end
+
 # gameplay 8 rounds 
 # check if there are 4 blacks after each round 
 round = 0
@@ -91,11 +96,11 @@ while round < 8 && win == false
   player_guess = add_guess_player
   evaluation = computer_evaluation(code, player_guess)
   player_guess_history[player_guess] = evaluation
-  player_guess_history.each do |key, value|
-    puts "#{key} : #{value}"
-  end
+  print_player_history(player_guess_history)
   p code
+  
 end
+puts "The computer wins"
 
 
 
