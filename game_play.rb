@@ -22,7 +22,7 @@ class GamePlay
 
   def print_instruction(mode)
     puts "Possible colors are blue, red, yellow, green, orange, purple"
-    if mode == "code"
+    if mode == "1"
       puts "Enter your code"
     else
       puts "Enter your guess! "
@@ -30,11 +30,9 @@ class GamePlay
   end
 
   def print_user_input(mode, player_input)
-    if mode == "code"
+    if mode == "1"
       puts "Your secrete code"
-    else 
-      puts "Your guess"
+      p player_input
     end
-    p player_input
   end
 end
