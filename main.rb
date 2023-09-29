@@ -1,4 +1,4 @@
-COLORS = ["blue", "red", "yellow", "green", "organe", "purple"]
+COLORS = ["blue", "red", "yellow", "green", "orange", "purple"]
 player_guess_history = {}
 
 def create_code_computer 
@@ -35,19 +35,25 @@ def correct_user_input(user_input)
   user_input
 end
 
-def right_position(evaluation, position_count,evaluation_code, evaluation_player_guess)
+def right_position(evaluation, found_color,evaluation_code, evaluation_player_guess)
   for i in 0..3
     if evaluation_code[i] == evaluation_player_guess[i]
       evaluation.push("black")
-      position_count.push(i)
+      found_color.push(evaluation_player_guess[i])
     end
   end
 end
 
 def right_color(evaluation, evaluation_code, evaluation_player_guess)
   evaluation_player_guess.each {|entry|
+    p entry
+    p "not correct color"
     if evaluation_code.include?(entry)
+      p 'test'
       evaluation.push("white")
+      evaluation_code.delete(entry)
+      p evaluation_code
+      p "shortened"
     end
     }
 end
@@ -56,26 +62,46 @@ def computer_evaluation(code, player_guess)
   evaluation_code = code.dup
   evaluation_player_guess = player_guess.dup
   evaluation = []
-  position_count = []
-  right_position(evaluation, position_count,evaluation_code, evaluation_player_guess )
-  p position_count
-  len = position_count.length
+  found_color = []
+  right_position(evaluation, found_color,evaluation_code, evaluation_player_guess )
+  p found_color 
+  p "correct colors"
+  len = found_color.length
   for i in 0...len
-    evaluation_code.delete_at(position_count[i])
-    evaluation_player_guess.delete_at(position_count[i])
+    evaluation_code.delete(found_color[i])
+    evaluation_player_guess.delete(found_color[i])
+    p evaluation_code 
+    p "remaining color code"
+    p evaluation_player_guess 
+    p "remaining color guess"
   end
   right_color(evaluation, evaluation_code, evaluation_player_guess)
   evaluation
 end 
 
-
+# gameplay 8 rounds 
+# check if there are 4 blacks after each round 
+round = 0
+win = false
 code = create_code_computer
-player_guess = add_guess_player
-evaluation = computer_evaluation(code, player_guess)
-player_guess_history[player_guess] = evaluation
-p player_guess_history
-p code
-p evaluation
+
+
+while round < 8 && win == false
+  round += 1
+  player_guess = add_guess_player
+  evaluation = computer_evaluation(code, player_guess)
+  player_guess_history[player_guess] = evaluation
+  player_guess_history.each do |key, value|
+    puts "#{key} : #{value}"
+  end
+  p code
+end
+
+
+
+
+
+
 
 
 
