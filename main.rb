@@ -50,7 +50,7 @@ def right_color(evaluation, evaluation_code, evaluation_player_guess)
     if evaluation_code.include?(entry)
       p 'test'
       evaluation.push("white")
-      evaluation_code.delete(entry)
+      evaluation_code.delete_at(evaluation_code.index(entry))
       p evaluation_code
       p "shortened"
     end
@@ -69,8 +69,8 @@ def computer_evaluation(code, player_guess)
   for i in 0...len
     p "next round"
     p found_color[i]
-    evaluation_code.delete(found_color[i])
-    evaluation_player_guess.delete(found_color[i])
+    evaluation_code.delete_at(evaluation_code.index(found_color[i]))
+    evaluation_player_guess.delete_at(evaluation_player_guess.index(found_color[i]))
     p evaluation_code 
     p "remaining color code"
     p evaluation_player_guess 
@@ -96,8 +96,7 @@ def winning_evaluation(player_guess_history, player_guess)
   end
 end
 
-# gameplay 8 rounds 
-# check if there are 4 blacks after each round 
+
 round = 0
 win = false
 #code = create_code_computer
