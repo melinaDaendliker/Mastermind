@@ -45,14 +45,14 @@ end
 
 def right_color(evaluation, evaluation_code, evaluation_player_guess)
   evaluation_player_guess.each {|entry|
-    p entry
-    p "not correct color"
+    #p entry
+    #p "not correct color"
     if evaluation_code.include?(entry)
-      p 'test'
+      #p 'test'
       evaluation.push("white")
       evaluation_code.delete(entry)
-      p evaluation_code
-      p "shortened"
+      #p evaluation_code
+      #p "shortened"
     end
     }
 end
@@ -64,15 +64,15 @@ def computer_evaluation(code, player_guess)
   found_color = []
   right_position(evaluation, found_color,evaluation_code, evaluation_player_guess )
   p found_color 
-  p "correct colors"
+  #p "correct colors"
   len = found_color.length
   for i in 0...len
     evaluation_code.delete(found_color[i])
     evaluation_player_guess.delete(found_color[i])
-    p evaluation_code 
-    p "remaining color code"
-    p evaluation_player_guess 
-    p "remaining color guess"
+    #p evaluation_code 
+    #p "remaining color code"
+    #p evaluation_player_guess 
+    #p "remaining color guess"
   end
   right_color(evaluation, evaluation_code, evaluation_player_guess)
   evaluation
@@ -84,6 +84,17 @@ def print_player_history(player_guess_history)
   end
 end
 
+def winning_evaluation(player_guess_history, player_guess)
+  if player_guess_history[player_guess].all?{|entry| p entry
+    entry =="black"}
+    if player_guess_history[player_guess].length == 4
+      p player_guess_history[player_guess]
+      puts "You win!!!"
+      return true
+    end
+  end
+end
+
 # gameplay 8 rounds 
 # check if there are 4 blacks after each round 
 round = 0
@@ -91,16 +102,24 @@ win = false
 code = create_code_computer
 
 
-while round < 8 && win == false
+until round > 8 || win
   round += 1
   player_guess = add_guess_player
   evaluation = computer_evaluation(code, player_guess)
   player_guess_history[player_guess] = evaluation
   print_player_history(player_guess_history)
+  win = winning_evaluation(player_guess_history, player_guess)
   p code
   
 end
 puts "The computer wins"
+
+
+def twenty_first_century_years?(year_list)
+  # use #all? to return true when all of the years in the year_list (array) are between 2001 and 2100
+  year_list.all?{|year| year.between?(2001, 2100)}
+end
+
 
 
 
