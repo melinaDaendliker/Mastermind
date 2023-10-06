@@ -5,6 +5,7 @@ class Player
 
   def initialize(mode)
     @mode = mode
+  
   end
 
   def player_input
@@ -17,7 +18,6 @@ class Player
       player_input.push(user_input)
     end
     puts `clear`
-    game.print_user_input(mode, player_input)
     player_input
   end
 
@@ -30,4 +30,25 @@ class Player
     user_input
   end
 
+  def evaluate
+    possibilities = ["black", "white", ""]
+    puts ""
+    puts "Please evaluate the computers guess"
+    puts "write black for correct color and correct place"
+    puts "write white for correcft color"
+    puts "press enter 2 times when done"
+
+    evaluation = []
+    until evaluation[-1] == ""
+      user_input = gets.chomp
+      until possibilities.include? user_input
+        puts "This is not a valid option"
+        puts "Please use black or white"
+        user_input = gets.chomp
+      end
+      evaluation.push(user_input)
+    end
+    evaluation.delete_at(-1)
+    evaluation
+  end
 end

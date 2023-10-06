@@ -12,11 +12,13 @@ class GamePlay
   end
   
   def winning_evaluation(player_guess_history, player_guess)
-    if player_guess_history[player_guess].all?{|entry| entry =="black"}
-      if player_guess_history[player_guess].length == 4
+    if player_guess_history[player_guess].length == 4
+      if player_guess_history[player_guess].all?{|entry| entry =="black"}
         puts "You win!!!"
         return true
       end
+    else 
+      return false
     end
   end
 
@@ -26,13 +28,6 @@ class GamePlay
       puts "Enter your code"
     else
       puts "Enter your guess! "
-    end
-  end
-
-  def print_user_input(mode, player_input)
-    if mode == "1"
-      puts "Your secrete code"
-      p player_input
     end
   end
 end

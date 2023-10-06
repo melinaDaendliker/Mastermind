@@ -24,7 +24,7 @@ class GameModes
     player_guess_history = {}
   
     code = computer.create_code_computer
-    until round >= 8 || win
+    until round >= 10 || win
       round += 1
       player_guess = player.player_input
       evaluation = computer.evaluation(code, player_guess)
@@ -32,15 +32,36 @@ class GameModes
       game.print_player_history(player_guess_history)
       win = game.winning_evaluation(player_guess_history, player_guess)
       p code
-      if round == 8
-        puts "Sorry the Computer wins"
-      end
+    end
+    if round == 8 && win == false
+      puts "Sorry the Computer wins"
     end
   end
 
   def create_code_gameplay(mode)
-    puts 'test'
+    game = GamePlay.new(mode)
+    
+    player = Player.new(mode)
+    computer = ComputerCodeBreaker.new
+    round = 0
+    win = false
+    opt = ["red","blue", "green", "orange", "yellow", "purple"]
+    
+    guess_history = {}
+    player_code = player.player_input
+    computer_guess = []
+    
+    until round >= 10 || win
+      computer_guess = computer.code_algorithm(round, guess_history, computer_guess, opt)
+      round += 1
+      p computer_guess
+      puts "Your code is"
+      p player_code
+      evaluation = player.evaluate
+      guess_history[computer_guess] = evaluation
+      puts `clear`
+
+    end
 
   end
-
 end
