@@ -33,7 +33,7 @@ class GameModes
       win = game.winning_evaluation(player_guess_history, player_guess)
       p code
     end
-    if round == 8 && win == false
+    if round == 10 && win == false
       puts "Sorry the Computer wins"
     end
   end
@@ -49,9 +49,12 @@ class GameModes
     
     guess_history = {}
     player_code = player.player_input
-    computer_guess = []
     
-    until round >= 10 || win
+    
+    until round >= 50 || win
+      if defined? computer_guess == nil
+        computer_guess = []
+      end
       computer_guess = computer.code_algorithm(round, guess_history, computer_guess, opt)
       round += 1
       p computer_guess
@@ -59,7 +62,8 @@ class GameModes
       p player_code
       evaluation = player.evaluate
       guess_history[computer_guess] = evaluation
-      puts `clear`
+      p guess_history
+      #puts `clear`
 
     end
 
