@@ -1,7 +1,8 @@
 class ComputerCodeBreaker
 
-  def code_algorithm(round, guess_history, computer_guess, opt)
+  def code_algorithm(round, guess_history, computer_guess, opt, not_possible_position)
     same = true
+    forbidden = true 
     puts "The computers guess is"
     if round == 0
       return same_4_colors(opt)
@@ -16,33 +17,48 @@ class ComputerCodeBreaker
       elsif result == 4
         num_white = count_num_white(guess_history, computer_guess)
         if num_white == 4
-          while same
+          computer_guess.each_with_index do |entry, index| 
+            not_possible_position[entry].push(index)
+          end
+
+          while same || forbidden
+            p not_possible_position
             p guess_history
             p "before manipulatin #{computer_guess}"
             computer_guess = switch_all_colors(computer_guess, guess_history)
             p guess_history
             p "after manipulatin #{computer_guess}"
-            same = check_for_repetition(guess_history, computer_guess,)
+            same = check_for_repetition(guess_history, computer_guess)
+            forbidden = check_forbidden_positions(not_possible_position, computer_guess)
+            p same 
+            p forbidden
+
           end
           computer_guess
         elsif num_white == 3
-          while same
+          while same || forbidden
             p guess_history
             p "before manipulatin #{computer_guess}"
             computer_guess = switch_3_colors(computer_guess)
             p guess_history
             p "after manipulatin #{computer_guess}"
-            same = check_for_repetition(guess_history, computer_guess,)
+            same = check_for_repetition(guess_history, computer_guess)
+            forbidden = check_forbidden_positions(not_possible_position, computer_guess)
+            p same 
+            p forbidden
           end
           computer_guess
         elsif num_white == 2
-          while same
+          while same || forbidden
             p guess_history
             p "before manipulatin #{computer_guess}"
             computer_guess = switch_2_colors(computer_guess)
             p guess_history
             p "after manipulatin #{computer_guess}"
-            same = check_for_repetition(guess_history, computer_guess,)
+            same = check_for_repetition(guess_history, computer_guess)
+            forbidden = check_forbidden_positions(not_possible_position, computer_guess)
+            p same 
+            p forbidden
           end
           computer_guess
         end
@@ -85,6 +101,7 @@ class ComputerCodeBreaker
   end
 
   def switch_all_colors(computer_guess, guess_history)
+    # guess history can be removed once all is working 
     p guess_history
     p computer_guess
     shuffled_array = computer_guess.dup
@@ -145,6 +162,20 @@ class ComputerCodeBreaker
     end
     false
   end
+
+  def check_forbidden_positions(not_possible_position, computer_guess)
+    p computer_guess
+    computer_guess.each_with_index do |entry, index|
+      value = not_possible_position[entry]
+      p value
+      p index
+      if value.include?(index)
+        p "this we have already done"
+        return true
+      end
+    end
+    return false
+  end
  
 
 end
@@ -178,15 +209,9 @@ while play_again
 end
 
 
-
-
-# two problems
-
-
-# make a game play function for code setting 
-# combin all and ask to play again 
-
-# add new feature for code breaking 
+# add feature when we give wrong answers
+# somhow break out of the game with error message and restart try statment could be usefull for this problem
+# other issue solve by next condirtion exit loop when takes tpo long restart game tell user wrong input
 
 # clean up the code 
 # use rubocop to clean up some more 

@@ -24,7 +24,7 @@ class GameModes
     player_guess_history = {}
   
     code = computer.create_code_computer
-    until round >= 10 || win
+    until round >= 12 || win
       round += 1
       player_guess = player.player_input
       evaluation = computer.evaluation(code, player_guess)
@@ -33,7 +33,7 @@ class GameModes
       win = game.winning_evaluation(player_guess_history, player_guess, mode)
       p code
     end
-    if round == 10 && win == false
+    if round == 12 && win == false
       puts "Sorry the Computer wins"
     end
   end
@@ -48,14 +48,16 @@ class GameModes
     opt = ["red","blue", "green", "orange", "yellow", "purple"]
     
     guess_history = {}
+    not_possible_position = Hash.new { |hash, key| hash[key] = [] }
+    p not_possible_position
     player_code = player.player_input
     
     
-    until round >= 10 || win
+    until round >= 12 || win
       if defined? computer_guess == nil
         computer_guess = []
       end
-      computer_guess = computer.code_algorithm(round, guess_history, computer_guess, opt)
+      computer_guess = computer.code_algorithm(round, guess_history, computer_guess, opt, not_possible_position)
       round += 1
       p computer_guess
       puts "Your code is"
@@ -69,7 +71,7 @@ class GameModes
       #puts `clear`
     end
 
-    if round == 10 && win == false
+    if round == 12 && win == false
       puts "You win!!"
     end
 
