@@ -35,7 +35,7 @@ class Player
     puts ""
     puts "Please evaluate the computers guess"
     puts "write black for correct color and correct place"
-    puts "write white for correcft color"
+    puts "write white for correct color"
     puts "press enter 2 times when done"
 
     evaluation = []

@@ -11,11 +11,17 @@ class GamePlay
     end
   end
   
-  def winning_evaluation(player_guess_history, player_guess)
+  def winning_evaluation(player_guess_history, player_guess, mode)
     if player_guess_history[player_guess].length == 4
       if player_guess_history[player_guess].all?{|entry| entry =="black"}
-        puts "You win!!!"
+        if mode == "1"
+          puts "Sorry the comupter wins"
+        else
+          puts "You win!!!"
+        end
         return true
+      else
+        return false
       end
     else 
       return false

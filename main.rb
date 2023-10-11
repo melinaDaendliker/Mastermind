@@ -45,8 +45,6 @@ class ComputerCodeBreaker
             same = check_for_repetition(guess_history, computer_guess,)
           end
           computer_guess
-        else
-          puts "The computer won !!!"
         end
       end
     end
@@ -157,21 +155,39 @@ require_relative "game_play.rb"
 require_relative "game_modes.rb"
 
 COLORS = ["blue", "red", "yellow", "green", "orange", "purple"]
+play_again = true
+
+
+def restart_game
+  puts "Do you want to play again? y/n"
+  again = gets.chomp
+  if again == "y"
+    true
+  else
+    false
+  end
+end
 
 
 
 new_game = GameModes.new()
-new_game.chose_mode
+
+while play_again
+  new_game.chose_mode
+  play_again = restart_game
+end
+
+
 
 
 # two problems
 
-# function thing not working
-# trouble with the 3 white function length of array only 3
 
-# creat a computer strategy to solve the game
 # make a game play function for code setting 
 # combin all and ask to play again 
+
+# add new feature for code breaking 
+
 # clean up the code 
 # use rubocop to clean up some more 
 
