@@ -11,9 +11,21 @@ class ComputerCodeBreaker
     if computer_guess.length > 0
       result = guess_history[computer_guess].length
       if result == 0
-        return same_4_colors(opt)
+        begin
+          return same_4_colors(opt)
+        rescue
+          puts "You have made an error in your evaluation"
+          exit(1)
+        end
+        
       elsif result.between?(1, 3)
-        return replace_colors(computer_guess, opt, result)
+        begin
+          return replace_colors(computer_guess, opt, result)
+        rescue 
+          puts "You have made an error in your evaluation"
+          exit(1)
+        end
+        
       elsif result == 4
         num_white = count_num_white(guess_history, computer_guess)
         if num_white == 4
