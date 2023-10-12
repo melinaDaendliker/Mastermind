@@ -1,6 +1,10 @@
+
+
 class ComputerCodeBreaker
+  require 'timeout' 
 
   def code_algorithm(round, guess_history, computer_guess, opt, not_possible_position)
+    max_execution_time = 10
     same = true
     forbidden = true 
     puts "The computers guess is"
@@ -17,7 +21,6 @@ class ComputerCodeBreaker
           puts "You have made an error in your evaluation"
           exit(1)
         end
-        
       elsif result.between?(1, 3)
         begin
           return replace_colors(computer_guess, opt, result)
@@ -33,46 +36,66 @@ class ComputerCodeBreaker
             not_possible_position[entry].push(index)
           end
 
-          while same || forbidden
-            p not_possible_position
-            p guess_history
-            p "before manipulatin #{computer_guess}"
-            computer_guess = switch_all_colors(computer_guess, guess_history)
-            p guess_history
-            p "after manipulatin #{computer_guess}"
-            same = check_for_repetition(guess_history, computer_guess)
-            forbidden = check_forbidden_positions(not_possible_position, computer_guess)
-            p same 
-            p forbidden
-
+          begin
+            Timeout.timeout(10) do  
+              while same || forbidden
+                p not_possible_position
+                p guess_history
+                p "before manipulatin #{computer_guess}"
+                computer_guess = switch_all_colors(computer_guess, guess_history)
+                p guess_history
+                p "after manipulatin #{computer_guess}"
+                same = check_for_repetition(guess_history, computer_guess)
+                forbidden = check_forbidden_positions(not_possible_position, computer_guess)
+                p same 
+                p forbidden
+              end
+              computer_guess
+            end
+          rescue Timeout::Error
+            puts "You have made an error in your evaluation"
+            exit(1)
           end
-          computer_guess
         elsif num_white == 3
-          while same || forbidden
-            p guess_history
-            p "before manipulatin #{computer_guess}"
-            computer_guess = switch_3_colors(computer_guess)
-            p guess_history
-            p "after manipulatin #{computer_guess}"
-            same = check_for_repetition(guess_history, computer_guess)
-            forbidden = check_forbidden_positions(not_possible_position, computer_guess)
-            p same 
-            p forbidden
+          begin
+            Timeout.timeout(10) do  
+              while same || forbidden 
+                p guess_history
+                p "before manipulatin #{computer_guess}"
+                computer_guess = switch_3_colors(computer_guess)
+                p guess_history
+                p "after manipulatin #{computer_guess}"
+                same = check_for_repetition(guess_history, computer_guess)
+                forbidden = check_forbidden_positions(not_possible_position, computer_guess)
+                p same 
+                p forbidden
+              end
+              computer_guess
+            end
+          rescue Timeout::Error
+            puts "You have made an error in your evaluation"
+            exit(1)
           end
-          computer_guess
         elsif num_white == 2
-          while same || forbidden
-            p guess_history
-            p "before manipulatin #{computer_guess}"
-            computer_guess = switch_2_colors(computer_guess)
-            p guess_history
-            p "after manipulatin #{computer_guess}"
-            same = check_for_repetition(guess_history, computer_guess)
-            forbidden = check_forbidden_positions(not_possible_position, computer_guess)
-            p same 
-            p forbidden
+          begin
+            Timeout.timeout(10) do
+              while same || forbidden 
+                p guess_history
+                p "before manipulatin #{computer_guess}"
+                computer_guess = switch_2_colors(computer_guess)
+                p guess_history
+                p "after manipulatin #{computer_guess}"
+                same = check_for_repetition(guess_history, computer_guess)
+                forbidden = check_forbidden_positions(not_possible_position, computer_guess)
+                p same 
+                p forbidden
+              end
+              computer_guess
+            end  
+          rescue Timeout::Error
+            puts "You have made an error in your evaluation"
+            exit(1)
           end
-          computer_guess
         end
       end
     end
@@ -188,42 +211,26 @@ class ComputerCodeBreaker
     end
     return false
   end
- 
-
 end
 
 require_relative "player.rb"
 require_relative "computer_coder.rb"
 require_relative "game_play.rb"
 require_relative "game_modes.rb"
+require 'timeout' 
 
 COLORS = ["blue", "red", "yellow", "green", "orange", "purple"]
 play_again = true
 
-
-def restart_game
-  puts "Do you want to play again? y/n"
-  again = gets.chomp
-  if again == "y"
-    true
-  else
-    false
-  end
-end
-
-
-
 new_game = GameModes.new()
+
 
 while play_again
   new_game.chose_mode
-  play_again = restart_game
+  play_again = new_game.restart_game
 end
 
 
-# add feature when we give wrong answers
-# somhow break out of the game with error message and restart try statment could be usefull for this problem
-# other issue solve by next condirtion exit loop when takes tpo long restart game tell user wrong input
 
 # clean up the code 
 # use rubocop to clean up some more 

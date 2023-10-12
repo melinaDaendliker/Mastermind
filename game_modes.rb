@@ -15,6 +15,16 @@ class GameModes
       end
   end
 
+  def restart_game
+    puts "Do you want to play again? y/n"
+    again = gets.chomp
+    if again == "y"
+      true
+    else
+      false
+    end
+  end
+
   def break_code_gameplay(mode)
     game = GamePlay.new(mode)
     player = Player.new(mode)
@@ -74,6 +84,8 @@ class GameModes
     if round == 12 && win == false
       puts "You win!!"
     end
+
+    game.game_start
 
   end
 end
