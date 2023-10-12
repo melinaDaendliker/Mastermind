@@ -10,35 +10,30 @@ class GamePlay
       puts "#{key} : #{value}"
     end
   end
-  
+
   def winning_evaluation(player_guess_history, player_guess, mode)
     if player_guess_history[player_guess].length == 4
-      if player_guess_history[player_guess].all?{|entry| entry =="black"}
-        if mode == "1"
-          puts "Sorry the comupter wins"
+      if player_guess_history[player_guess].all? { |entry| entry == 'black' }
+        if mode == '1'
+          puts 'Sorry the comupter wins'
         else
-          puts "You win!!!"
+          puts 'You win!!!'
         end
-        return true
+        true
       else
-        return false
+        false
       end
-    else 
-      return false
+    else
+      false
     end
   end
 
   def print_instruction(mode)
-    puts "Possible colors are blue, red, yellow, green, orange, purple"
-    if mode == "1"
-      puts "Enter your code"
+    puts 'Possible colors are blue, red, yellow, green, orange, purple'
+    if mode == '1'
+      puts 'Enter your code'
     else
-      puts "Enter your guess! "
+      puts 'Enter your guess! '
     end
   end
 end
-
-
-
-
-
