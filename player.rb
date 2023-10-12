@@ -1,11 +1,10 @@
-require_relative 'game_play.rb'
+require_relative 'game_play'
 
 class Player
   attr_accessor :mode
 
   def initialize(mode)
     @mode = mode
-  
   end
 
   def player_input
@@ -23,27 +22,27 @@ class Player
 
   def correct_user_input(user_input)
     until COLORS.include? user_input
-      puts "This color is not an option"
-      puts "Enter your guess! "
+      puts 'This color is not an option'
+      puts 'Enter your guess! '
       user_input = gets.chomp
     end
     user_input
   end
 
   def evaluate
-    possibilities = ["black", "white", ""]
-    puts ""
-    puts "Please evaluate the computers guess"
-    puts "write black for correct color and correct place"
-    puts "write white for correct color"
-    puts "press enter 2 times when done"
+    possibilities = ['black', 'white', '']
+    puts ''
+    puts 'Please evaluate the computers guess'
+    puts 'write black for correct color and correct place'
+    puts 'write white for correct color'
+    puts 'press enter 2 times when done'
 
     evaluation = []
-    until evaluation[-1] == ""
+    until evaluation[-1] == ''
       user_input = gets.chomp
       until possibilities.include? user_input
-        puts "This is not a valid option"
-        puts "Please use black or white"
+        puts 'This is not a valid option'
+        puts 'Please use black or white'
         user_input = gets.chomp
       end
       evaluation.push(user_input)

@@ -1,3 +1,4 @@
+require_relative "code_breaking"
 class GameModes
 
   def chose_mode
@@ -84,8 +85,5 @@ class GameModes
     if round == 12 && win == false
       puts "You win!!"
     end
-
-    game.game_start
-
   end
 end
