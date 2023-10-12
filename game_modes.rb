@@ -67,7 +67,6 @@ class GameModes
       evaluation = player.evaluate
       guess_history[computer_guess] = evaluation
       win = game.winning_evaluation(guess_history, computer_guess, mode)
-      puts `clear`
     end
 
     return unless round == 12 && win == false
